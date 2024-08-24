@@ -34,7 +34,7 @@ public class UserControllerTest {
 
     @Before
     public void setup() {
-        MockitoAnnotations.openMocks(this);
+        MockitoAnnotations.openMocks(this); // Correct method to initialize mocks
 
         ViewResolver viewResolver = new InternalResourceViewResolver("/WEB-INF/views/", ".jsp");
         mockMvc = MockMvcBuilders.standaloneSetup(userController)
