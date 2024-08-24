@@ -19,14 +19,15 @@ import com.visualpathit.account.model.User;
 import com.visualpathit.account.service.UserService;
 import com.visualpathit.account.setup.StandaloneMvcTestViewResolver;
 
-@@RunWith(SpringRunner.class)
+@RunWith(SpringRunner.class)
 @WebMvcTest(UserController.class)
 public class UserControllerTest {
-	
+
 	@Mock
 	private UserService controllerSer;
 	@InjectMocks
 	private UserController controller;
+	@Autowired
 	private MockMvc mockMvc;
 	
 	@Before
