@@ -11,12 +11,9 @@ import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
-import org.springframework.web.servlet.ViewResolver;
-import org.springframework.web.servlet.view.InternalResourceViewResolver;
 
 import com.visualpathit.account.controller.UserController;
 import com.visualpathit.account.service.UserService;
@@ -34,11 +31,9 @@ public class UserControllerTest {
 
     @Before
     public void setup() {
-        MockitoAnnotations.openMocks(this); // Correct method to initialize mocks
+        MockitoAnnotations.openMocks(this); // Initialize mocks
 
-        ViewResolver viewResolver = new InternalResourceViewResolver("/WEB-INF/views/", ".jsp");
         mockMvc = MockMvcBuilders.standaloneSetup(userController)
-                .setViewResolvers(viewResolver)
                 .build();
     }
 
@@ -70,15 +65,16 @@ public class UserControllerTest {
                 .andExpect(view().name("index_home"));
     }
 
-    // Uncomment and complete this test as needed
-    /*
     @Test
     public void registrationPostTest() throws Exception {
+        // Mock the behavior of userService if needed
+        // For example:
+        // Mockito.when(userService.registerUser(Mockito.any())).thenReturn(true);
+
         mockMvc.perform(post("/registration")
                 .param("username", "testuser")
                 .param("password", "testpassword"))
                 .andExpect(status().is3xxRedirection())
                 .andExpect(view().name("redirect:/welcome"));
     }
-    */
 }
