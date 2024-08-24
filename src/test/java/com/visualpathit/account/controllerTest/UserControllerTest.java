@@ -15,12 +15,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
+import org.springframework.web.servlet.ViewResolver;
 import org.springframework.web.servlet.view.InternalResourceViewResolver;
 
 import com.visualpathit.account.controller.UserController;
-import com.visualpathit.account.model.User;
 import com.visualpathit.account.service.UserService;
-import com.visualpathit.account.setup.StandaloneMvcTestViewResolver;
 
 @RunWith(SpringRunner.class)
 public class UserControllerTest {
@@ -31,16 +30,15 @@ public class UserControllerTest {
     @InjectMocks
     private UserController userController;
 
-    @Autowired
     private MockMvc mockMvc;
 
     @Before
     public void setup() {
-        MockitoAnnotations.initMocks(this);
+        MockitoAnnotations.openMocks(this);
 
-        // Configure MockMvc with a view resolver if needed
+        ViewResolver viewResolver = new InternalResourceViewResolver("/WEB-INF/views/", ".jsp");
         mockMvc = MockMvcBuilders.standaloneSetup(userController)
-                .setViewResolvers(new StandaloneMvcTestViewResolver())
+                .setViewResolvers(viewResolver)
                 .build();
     }
 
@@ -76,7 +74,6 @@ public class UserControllerTest {
     /*
     @Test
     public void registrationPostTest() throws Exception {
-        User user = new User();
         mockMvc.perform(post("/registration")
                 .param("username", "testuser")
                 .param("password", "testpassword"))
